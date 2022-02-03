@@ -6,7 +6,6 @@ int main() {
 	string accounts="Акаунти.txt";
 	tester t;
 
-	t.register_account(accounts);
 
 
 	return 0;

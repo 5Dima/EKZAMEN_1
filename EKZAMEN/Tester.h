@@ -29,6 +29,23 @@ bool cheсk_email(string path, string email) {
 		fin.close();
 		return p;
 }
+
+bool cheсk_parols(string path, string parol) {
+	string str;
+	fstream fin;
+	bool p=false;
+	fin.open(path, fstream::in);
+	while (!fin.eof()) {
+		fin >> str;
+		fin >> str;
+		if (str == parol) {
+			p = true;
+			break;
+		}
+	}
+		fin.close();
+		return p;
+}
 bool putany() {
 	int choic;
 	cout << "|| 1 - Спробувати ще раз!\n";
@@ -102,6 +119,42 @@ public:
 		}
 	}
 
+	bool login_account(string path) {
+		login = false;
+		pere = true;
+		const int sprob = 5;
+		while (pere) {
+			cout << string(40, '=') << "\n";
+			cout << "Вхід в акаунт!\n";
+			cout << "Ведіть email: ";
+			getline(cin, email);
+			if (cheсk_email(path, email)) {
+			
+				cout << "Ведіть пароль: ";
+				for (int i = 1; i < sprob; i++)
+				{
+				getline(cin, parol);
+				
+				if (cheсk_parols(path, parol)) {
+					login = true;
+					break;
+				}
+				else {
+					if (sprob - i != 1) { cout << "Залишилось " << sprob - i-1 << " спроби!\n"; }
+					else { cout << "Всі спроби завершились"; }
+				}
+					pere = false;
+				}
+			}
+			else {
+				cout << "Такий email не існує!\n";
+				if (putany() == false)pere = false;
+			}
+		}
+		return login;
+	}
+
+	string get_email()const { return email; }
 
 
 
