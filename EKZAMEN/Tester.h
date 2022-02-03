@@ -2,6 +2,7 @@
 //STL
 #include<vector>
 #include<string>
+#include<list>
 #include<map>
 
 // додадктові
@@ -153,11 +154,7 @@ public:
 		}
 		return login;
 	}
-
 	string get_email()const { return email; }
-
-
-
 
 };
 
