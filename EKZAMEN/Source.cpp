@@ -6,11 +6,11 @@ int main() {
 	string accounts="Акаунти.txt";
 	tester t;
 	films f;
-	f.set_test();
-	f.print_test();
-	f.reply_test();
-	cout << "\n\n";
-	f.print_correct_test();
-	f.print_wrong_test();
+	//f.set_test();
+	//f.print_test();
+	//f.reply_test();
+	//cout << "\n\n";
+	//f.print_correct_test();
+	//f.print_wrong_test();
 	return 0;
 }

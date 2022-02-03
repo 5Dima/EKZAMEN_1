@@ -6,12 +6,9 @@ class putany_testiv {
 	map<int, string>m;
 	int v;
 public:
-
-
 	void set_putany() {
 		cout << "Ведіть запитання: ";
 		getline(cin, test);
-
 		for (int i = 0; i < 4; i++)
 		{
 			cout << "Ведіть (" << i + 1 << ") - варіант відповіді : ";
@@ -35,11 +32,15 @@ public:
 			else cout << "\n";
 		}
 	}
+	//SET
+	void set_test(string test) {this->test = test; }
+	void set_variant(int i,string v1) {m.insert({ i,v1 });}
+	void set_vidpovid(int i) { v = i; }
 
+
+	//GET
 	string get_test()const { return   test; }
-
 	string get_v1(int i)const { auto el = m.find(i); return el->second; }
-
 	int get_v()const { return v; }
 
 
@@ -57,14 +58,83 @@ public:
 	virtual void print_wrong_test() = 0;
 };
 
+
+class work_file {
+	fstream fin;
+	string str;
+	int v;
+public:
+
+	void cout_fille(string path, putany_testiv p[SIZE]){
+		fin.open(path, fstream::in);
+		for (int i = 0; i < SIZE; i++)
+		{
+			getline(fin, str);
+			p[i].set_test(str);
+			for (int j = 1; j < 5; j++)
+			{
+			fin >> str;
+			p[i].set_variant(j, str);
+			}
+			fin >> v;
+			p[i].set_vidpovid(v);
+			getline(fin, str);
+			getline(fin, str);
+		}
+		fin.close();
+	}
+	
+	void cin_fille(string path, putany_testiv p[SIZE]){
+		fin.open(path, fstream::out);
+		for (int i = 0; i < SIZE; i++){
+			fin << p[i].get_test()<<"\n";
+			for (int j = 1; j < 5; j++){
+				if (j % 2 == 0)fin<< p[i].get_v1(j) << "\t";
+				else fin << p[i].get_v1(j)<<"\n";
+			}
+			fin << p[i].get_v() << "\n";
+			fin << string(30, '=')<<"\n";
+	     }
+		fin.close();
+	}
+	
+	void app_fille(string path, putany_testiv p[SIZE]){
+		fin.open(path, fstream::app);
+		for (int i = 0; i < SIZE; i++){
+			fin << p[i].get_test()<<"\n";
+			for (int j = 1; j < 5; j++){
+				if (j % 2 == 0)fin<< p[i].get_v1(j) << "\t";
+				else fin << p[i].get_v1(j)<<"\n";
+			}
+			fin << p[i].get_v() << "\n";
+			fin << string(30, '=')<<"\n";
+	     }
+		fin.close();
+	}
+
+
+
+
+
+};
+
+
+
 class films :public zavdany {
 	string name;
 	int size, nomer;
 	int vidpo;
 	list<putany_testiv> l;
-	putany_testiv p[5];
+	putany_testiv p[SIZE];
 	map<int, putany_testiv> correct, wrong;
+	string path;
+	work_file wf;
 public:
+	films() {
+		name = "Не відоме заповніть назву тесту!";
+		path = "Питанння по фільмах.txt";
+	}
+
 	void set_name_testa()override {
 		cout << "Ведіть назву теста: ";
 		getline(cin, name);
@@ -101,6 +171,10 @@ public:
 			}
 		}
 	}
+
+
+
+
 	void print_correct_test()override {
 		for (auto el = correct.begin(); el !=correct.end(); el++)
 		{
@@ -108,6 +182,9 @@ public:
 			cout << "Ви відповіли правельно: " << el->second.get_v1(el->first)<<"\n";
 		}
 	}
+
+
+
 
 	void print_wrong_test() override {
 		for (auto el = wrong.begin(); el != wrong.end(); el++)
@@ -117,7 +194,6 @@ public:
 			cout << "\nПравельна віідповідь: " << el->second.get_v1(el->second.get_v())<<"\n";
 		}
 	}
-
 
 
 };
