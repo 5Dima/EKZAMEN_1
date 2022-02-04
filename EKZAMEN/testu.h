@@ -46,7 +46,7 @@ public:
 
 };
 
-#define SIZE 2
+#define SIZE 2 //6
 
 class zavdany {
 public:
@@ -56,6 +56,9 @@ public:
 	virtual void reply_test() = 0;
 	virtual void print_correct_test() = 0;
 	virtual void print_wrong_test() = 0;
+
+	virtual void set_bal_vidsotok() = 0;
+	virtual void resault() = 0;
 };
 
 
@@ -113,9 +116,6 @@ public:
 	}
 
 
-
-
-
 };
 
 
@@ -123,7 +123,8 @@ public:
 class films :public zavdany {
 	string name;
 	int size, nomer;
-	int vidpo;
+	int vidpo,bal,vidsot;
+	
 	list<putany_testiv> l;
 	putany_testiv p[SIZE];
 	map<int, putany_testiv> correct, wrong;
@@ -140,6 +141,7 @@ public:
 		getline(cin, name);
 	}
 
+
 	void set_test()override {
 		cout << "Назва тесту " << name << "\n";
 		for (int i = 0; i < SIZE; i++)
@@ -147,6 +149,13 @@ public:
 			p[i].set_putany();
 			l.push_back(p[i]);
 		}
+	}
+	
+	void set_test_in_fille() {
+		cout << "Назва тесту " << name << "\n";
+			wf.cout_fille(path, p);
+		for (int i = 0; i < SIZE; i++)
+			l.push_back(p[i]);
 	}
 
 	void print_test() override {
@@ -172,27 +181,36 @@ public:
 		}
 	}
 
-
-
-
 	void print_correct_test()override {
+		cout << string(50, '^')<<"\n";
 		for (auto el = correct.begin(); el !=correct.end(); el++)
 		{
 			el->second.print_putany();
 			cout << "Ви відповіли правельно: " << el->second.get_v1(el->first)<<"\n";
 		}
+		cout << string(50, '^')<<"\n";
 	}
-
-
-
-
+	
+	void set_bal_vidsotok()override {
+		bal = correct.size()*2;
+		vidsot = 12 / 100;
+		vidsot *= bal;
+	}
+	
+	void resault()override {
+		cout << "Бали за тест " << name << ": " << bal << "\n";
+		cout << "Процент правельних відповідей: " <<  vidsot << "%\n";
+	}
+	
 	void print_wrong_test() override {
+		cout << string(50, '^') << "\n";
 		for (auto el = wrong.begin(); el != wrong.end(); el++)
 		{
 			el->second.print_putany();
-			cout << "Ви відповіли правельно: " << el->second.get_v1(el->first);
+			cout << "Ви відповіли: " << el->second.get_v1(el->first);
 			cout << "\nПравельна віідповідь: " << el->second.get_v1(el->second.get_v())<<"\n";
 		}
+		cout << string(50, '^') << "\n";
 	}
 
 
