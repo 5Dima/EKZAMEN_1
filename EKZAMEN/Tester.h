@@ -10,6 +10,8 @@
 #include<iomanip>
 #include<fstream>
 #include<algorithm>
+#include<conio.h>
+#include<math.h>
 
 
 using namespace std;
@@ -100,6 +102,8 @@ class tester {
 	fstream fin;
 	bool pere, login;
 public:
+
+
 	void register_account(string path) {
 		pere = true;
 		while (pere) {
@@ -138,13 +142,14 @@ public:
 				
 				if (cheсk_parols(path, parol)) {
 					login = true;
+					pere = false;
 					break;
 				}
 				else {
 					if (sprob - i != 1) { cout << "Залишилось " << sprob - i-1 << " спроби!\n"; }
 					else { cout << "Всі спроби завершились"; }
 				}
-					pere = false;
+				 	pere = false;
 				}
 			}
 			else {

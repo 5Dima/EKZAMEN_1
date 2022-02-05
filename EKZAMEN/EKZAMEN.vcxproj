@@ -143,6 +143,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="call_classes.h" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="testu.h" />
     <ClInclude Include="Tester.h" />
   </ItemGroup>
