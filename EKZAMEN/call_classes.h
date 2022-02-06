@@ -201,8 +201,9 @@ class work_admina {
 	work_file wf;
 	map<string, string> m;
 	fstream fin;
-	films* f = new films;
-	books* b = new books;
+	films* f[5] = { new films ,new films ,new films ,new films ,new films };
+	books* b[5] = { new books ,new books ,new books ,new books ,new books };
+	int i=0, j=0;
 public:
 
 
@@ -315,22 +316,35 @@ public:
 				case 1:
 					c = menu_vubir_2();
 					if (!c) {
-						cout << "Ведіть назву теста по темі книжки: ";
-						getline(cin, str);
-						b->set_test();
-						mb.insert({ str,b });
+						if (j < 5) {
+							cout << "Ведіть назву теста по темі книжки: ";
+							getline(cin, str);
+							b[j]->set_test();
+							mb.insert({ str,b[j] });
+						}
+						else {
+							cout << "Вибачти максимальна кількість тем для тестів!\n";
+						}
 					}
 					else {
-					
+
+
 					}
+					
 					break;
 				case 2:
 					c = menu_vubir_2();
 					if (!c) {
-						cout << "Ведіть назву теста по темі фільми: ";
-						getline(cin, str);
-						f->set_test();
-						mf.insert({ str,f });
+						if (i < 5) {
+							cout << "Ведіть назву теста по темі фільми: ";
+							getline(cin, str);
+							f[i]->set_test();
+							mf.insert({ str,f[i] });
+							i++;
+						}
+						else {
+							cout << "Вибачти максимальна кількість тем для тестів!\n";
+						}
 					}
 					else {
 

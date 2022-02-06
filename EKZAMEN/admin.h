@@ -53,7 +53,7 @@ void step_2_in_admin(string admin, string email, map<string, books*>&mb, map<str
 
 }
 
-void step_1(string accou, string zdani, string admin, map<string, books*>mb, map<string, films*>mf) {
+void step_1(string accou, string zdani, string admin, map<string, books*>&mb, map<string, films*>&mf) {
 	int choic;
 	tester t;
 	do {

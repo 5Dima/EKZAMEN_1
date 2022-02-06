@@ -59,48 +59,65 @@ int menu_4() {
 	case '3': choic = 3; break;
 	case '0': choic = 0; break;
 	}
-	return choic;
-}
-
-int menu_3_books(map<string, books*>&m) {
-	int i=1;
+	cout << "\n";
 	system("pause");
 	system("cls");
-	cout << string(40, '=') << "\n";
-	for (auto el = m.begin(); el != m.end(); el++) {
-		cout << "|| ("<<i<<") - " << el->first << "\n";
-		i++;
-	}
-	cout << "|| (0) - Вихід\n";
-	cout << "Натисніть на клавішу: ";
-	int choic;
-(	cin >> choic).get();
 	return choic;
 }
 
-int menu_3_films(map<string, films*>& m) {
-	int i=1;
+//int menu_3_books(map<string, books*>&m) {
+//	int i=1;
+//	system("pause");
+//	system("cls");
+//	cout << string(40, '=') << "\n";
+//	for (auto el = m.begin(); el != m.end(); el++) {
+//		cout << "|| ("<<i<<") - " << el->first << "\n";
+//		i++;
+//	}
+//	cout << "|| (0) - Вихід\n";
+//	cout << "Натисніть на клавішу: ";
+//	int choic;
+//(	cin >> choic).get();
+//	return choic;
+//}
+//
+//int menu_3_films(map<string, films*>& m) {
+//	int i=1;
+//	system("pause");
+//	system("cls");
+//	cout << string(40, '=') << "\n";
+//	for (auto el = m.begin(); el != m.end(); el++) {
+//		cout << "|| ("<<i<<") - " << el->first << "\n";
+//		i++;
+//	}
+//	cout << "|| (0) - Вихід\n";
+//	cout << "Натисніть на клавішу: ";
+//	int choic;
+//(	cin >> choic).get();
+//	return choic;
+//}
+
+
+void step_4_films(string zdani,string email, map<string, films*>&m) {
+	int choic;
+	int i = 1;
+	cout << string(40, '=') << "\n";
+	for (auto el = m.begin(); el != m.end(); el++) {
+		cout << "|| (" << i << ") - " << el->first << "\n";
+		i++;
+	}
+		auto el = m.begin();
+	do {
+		string str;
+		cout << "Ведіть тему яку хочете протестити: ";
+		getline(cin, str);
+		el = m.find(str);
+		if (el != m.end())break;
+		else { cout << "Такої теми немає!\n"; }
+
+	} while (true);
 	system("pause");
 	system("cls");
-	cout << string(40, '=') << "\n";
-	for (auto el = m.begin(); el != m.end(); el++) {
-		cout << "|| ("<<i<<") - " << el->first << "\n";
-		i++;
-	}
-	cout << "|| (0) - Вихід\n";
-	cout << "Натисніть на клавішу: ";
-	int choic;
-(	cin >> choic).get();
-	return choic;
-}
-
-
-
-
-void step_4_films(string zdani,string email,int i, map<string, films*>&m) {
-	int choic;
-	auto el = m.begin();
-	advance(el, i);
 	work_tester w;
 	do {
 		choic = menu_4();
@@ -109,6 +126,8 @@ void step_4_films(string zdani,string email,int i, map<string, films*>&m) {
 		case 1:
 			w.verification_passed_tests(el->second);
 			w.checking_overwhelmed_tests(el->second);
+			system("pause");
+			system("cls");
 			break;
 		case 2:
 			w.zdacha(el->second, email, zdani,el->first);
@@ -120,20 +139,36 @@ void step_4_films(string zdani,string email,int i, map<string, films*>&m) {
 	} while (true);
 }
 
-void step_4_books(string zdani,string email,int i, map<string, books*>&m) {
+void step_4_books(string zdani,string email,map<string, books*>&m) {
 	int choic;
+	int i = 1;
+	cout << string(40, '=') << "\n";
+	for (auto el = m.begin(); el != m.end(); el++) {
+		cout << "|| (" << i << ") - " << el->first << "\n";
+		i++;
+	}
 	auto el = m.begin();
+	do {
+		string str;
+		cout << "Ведіть тему яку хочете протестити: ";
+		getline(cin, str);
+		el = m.find(str);
+		if (el != m.end())break;
+		else { cout << "Такої теми немає!\n"; }
+
+	} while (true);
 	system("pause");
-	advance(el, i);
+	system("cls");
 	work_tester w;
 	do {
-
 		choic = menu_4();
 		if (!choic)break;
 		switch (choic) {
 		case 1:
 			w.verification_passed_tests(el->second);
 			w.checking_overwhelmed_tests(el->second);
+			system("pause");
+			system("cls");
 			break;
 		case 2:
 			w.zdacha(el->second, email, zdani,el->first);
@@ -148,25 +183,7 @@ void step_4_books(string zdani,string email,int i, map<string, books*>&m) {
 }
 
 
-void step_3_films(string zdani, string email,  map<string, films*>&m) {
-	int choic;
-	do {
-		choic = menu_3_films(m);
-		if (!choic)break;
-		step_4_films(zdani, email, choic, m);
 
-	} while (true);
-}
-
-
-void step_3_books(string zdani, string email, map<string, books*> &m) {
-	int choic;
-	do {
-		choic = menu_3_books(m);
-		if (!choic)break;
-		step_4_books(zdani, email, choic, m);
-	} while (true);
-}
 
 
 
@@ -179,10 +196,10 @@ void step_2(string zdani,string email, map<string, books*>mb,map<string, films*>
 		if (!choic)break;
 		switch (choic) {
 		case 1:
-			step_3_films(zdani, email, mf);
+			step_4_films(zdani,email,mf);
 			break;
 		case 2:
-			step_3_books(zdani, email, mb);
+			step_4_books(zdani, email, mb);
 			break;
 
 		}

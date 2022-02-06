@@ -13,7 +13,6 @@ int main() {
 	films *f=new films;
 
 
-
     step_1(accounts,zdani,admin,mb,mf);
 
 
