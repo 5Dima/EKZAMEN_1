@@ -6,24 +6,23 @@ int main() {
 	string accounts = "Акаунти.txt";
 	string zdani = "Здані тести.txt";
 	string admin = "Адмін.txt";
-
 	work_tester w;
 	map<string, films*>mf;
 	map<string, books*>mb;
-	//zavdany *z[2] = { new films };
+	map<string, zavdany*>m;
 	films *f=new films;
-	work_admina wa;
-	//wa.print_testeriv(accounts);
-	//wa.work_acount_testera_add(accounts);
-	 wa.add_test(mf, mb);
+	//work_admina wa;
+
+	step_1(accounts,zdani,admin,mb,mf);
 
 
+
+	// wa.add_test(mf, mb);
 	//f->set_test();
 
 	//m.insert({ "Гарі",f });
 	//f->set_test();
 
-	//step_1(accounts,zdani,m);
 
 
 	//f[0]->print_correct_test();

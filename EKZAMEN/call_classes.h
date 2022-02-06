@@ -14,9 +14,9 @@ public:
 	}
 	/// ////////////////////
 
-	void zdacha(zavdany* z,string email,string path) {
+	void zdacha(zavdany* z,string email,string path,string str) {
 		z->reply_test();
-		z->set_zdani_testu(email, path);
+		z->set_zdani_testu(email, path,str);
 	}
 	void verification_passed_tests(zavdany *z) {
 		z->print_correct_test();
@@ -94,19 +94,35 @@ void set_fil_test_books(string path,map<string,books*>m) {
 	fin.close();
 }
 
-
-void cout_fil_test_books(string path,map<string,books*>&m) {
-	fstream fin;
-	fin.open(path, fstream::in);
-	while (!fin.eof()) {
-
-
-
-
-	}
-	
-	fin.close();
-}
+//
+//void cout_fil_test_books(string path,map<string,books*>&m) {
+//	fstream fin;
+//	string p,str,test, v1, v2, v3, v4;
+//	int v;
+//	books* b=new books;
+//	fin.open(path, fstream::in);
+//	//while (!fin.eof()) {
+//		getline(fin, str);
+//		for (int i = 0; i < SIZE; i++)
+//		{
+//		getline(fin, test);
+//		fin >> v1;
+//		fin >> v2;
+//		fin >> v3;
+//		fin >> v4;
+//		getline(fin, p);
+//		fin >> v;
+//		b->set_test(test, i);
+//		b->set_variant(v1, i, 1);
+//		b->set_variant(v2, i, 2);
+//		b->set_variant(v3, i, 3);
+//		b->set_variant(v4, i, 4);
+//		b->set_p(i);
+//		}
+//	m.insert({str,b});
+////	}
+//	fin.close();
+//}
 
 int menu_vubir() {
 	cout << string(30, '^') << "\n";
@@ -136,7 +152,43 @@ int menu_vubir_2() {
 }
 	
 
+int menu_last() {
+	cout << string(40, '=') << "\n";
+	cout << "|| (1) - Переглянути усі здані тести!\n";
+	cout << "|| (2) - Переглянути усі здані тести(по email)!\n";
+	cout << "|| (3) - Переглянути усі здані тести(по темі)!\n";
+	cout << "|| (0) - Вихід!\n";
+	cout << string(40, '=') << "\n";
+	int choic;
+	
+	cout << "Ведіть число: ";
+	(cin >> choic).get();
+	return choic;
+}
+
+int menu_2_admin() {
+	int choic = 0;
+	system("pause");
+	system("cls");
+	cout << string(40, '=') << "\n";
+	cout << "|| (1) - Змінини пароль!\n";
+	cout << "|| (2) - Подальші дії!\n";
+	cout << "|| (0) - Вихід\n";
+	cout << "Натисніть на клавішу: ";
+	switch (_getch()) {
+	case '1': choic = 1; break;
+	case '2': choic = 2; break;
+	case '0': choic = 0; break;
+	}
+
+	return choic;
+}
+
+
+
+
 class work_admina {
+	work_file wf;
 	map<string, string> m;
 	fstream fin;
 	films* f = new films;
@@ -261,10 +313,8 @@ public:
 						mb.insert({ str,b });
 					}
 					else {
-
-
+					
 					}
-
 					break;
 				case 2:
 					c = menu_vubir_2();
@@ -288,7 +338,39 @@ public:
 
 
 
+		void pereglyt(string zdani,string accounts ) {
+			int choic;
+			string email;
+			do {
+				choic = menu_last();
+				if (!choic)break;
+
+				switch (choic) {
+				case 1:
+					
+					wf.cout_correct_wrong_fille(zdani);
+
+					break;
+				case 2:
+					print_testeriv(accounts);
+					cout << "\nВедіть email: ";
+					getline(cin, email);
+					wf.cout_correct_wrong_fille(email, zdani);
+						break;
+				case 3:
+					cout << "\nВедіть тему: ";
+					getline(cin, email);
+					wf.cout_correct_wrong_fille(email, zdani);
+					break;
+				}
+
+			} while (true);
+
+        }
 };
+
+
+
 
 
 

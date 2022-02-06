@@ -1,45 +1,9 @@
-бетмен
-гг
-вовк	кажан
-лев	лис
-2
-жж
-вовк	кажан
-лев	лис
+Гарі потер
+Як звати головного героя
+Гарі	Герміона
+Юра	Василь
 1
-sdlldsflsd
-sdfldslf
-dsfldslf	,xcvlkews
-dsfdsa	xvsdafsd
+Яка фаміля головного героя
+Бетмен	Кітаєць
+Потер	Неважно
 3
-sfssdfds
-dsfldslf	,xcvlkews
-dsfdsa	xvsdafsd
-2
-aaaaaaaaaaaaaaaaa
-aaaaaaaaaaa
-aaaaaaaaa	aaaaaaa
-aaaaaaaaa	aaaaaaaa
-2
-v
-aaaaaaaaa	aaaaaaa
-aaaaaaaaa	aaaaaaaa
-3
-aaa
-aa
-dfsdfsd	dfsdfsd
-dfsdfsd	dfsdfsd
-2
-v
-dfsdfsd	dfsdfsd
-dfsdfsd	dfsdfsd
-3
-a
-v
-dfsdfsd	dfsdfsd
-dfsdfsd	dfsdfsd
-3
-a
-dfsdfsd	dfsdfsd
-dfsdfsd	dfsdfsd
-2
