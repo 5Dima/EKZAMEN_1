@@ -1,5 +1,4 @@
 #include"call_classes.h"
-int size_films = 0;
 
 int menu_1() {
 	int choic;
@@ -62,15 +61,14 @@ int menu_4() {
 	}
 	return choic;
 }
-work_tester w;
 
-int menu_3_books(map<string, books*>m) {
+int menu_3_books(map<string, books*>&m) {
 	int i=1;
 	system("pause");
 	system("cls");
 	cout << string(40, '=') << "\n";
 	for (auto el = m.begin(); el != m.end(); el++) {
-		cout << "|| ("<<i<<" - " << el->first << "\n";
+		cout << "|| ("<<i<<") - " << el->first << "\n";
 		i++;
 	}
 	cout << "|| (0) - Вихід\n";
@@ -80,13 +78,13 @@ int menu_3_books(map<string, books*>m) {
 	return choic;
 }
 
-int menu_3_films(map<string, films*>m) {
+int menu_3_films(map<string, films*>& m) {
 	int i=1;
 	system("pause");
 	system("cls");
 	cout << string(40, '=') << "\n";
 	for (auto el = m.begin(); el != m.end(); el++) {
-		cout << "|| ("<<i<<" - " << el->first << "\n";
+		cout << "|| ("<<i<<") - " << el->first << "\n";
 		i++;
 	}
 	cout << "|| (0) - Вихід\n";
@@ -99,10 +97,11 @@ int menu_3_films(map<string, films*>m) {
 
 
 
-void step_4_films(string zdani,string email,int i, map<string, films*>m) {
+void step_4_films(string zdani,string email,int i, map<string, films*>&m) {
 	int choic;
 	auto el = m.begin();
 	advance(el, i);
+	work_tester w;
 	do {
 		choic = menu_4();
 		if (!choic)break;
@@ -121,10 +120,12 @@ void step_4_films(string zdani,string email,int i, map<string, films*>m) {
 	} while (true);
 }
 
-void step_4_books(string zdani,string email,int i, map<string, books*>m) {
+void step_4_books(string zdani,string email,int i, map<string, books*>&m) {
 	int choic;
 	auto el = m.begin();
+	system("pause");
 	advance(el, i);
+	work_tester w;
 	do {
 
 		choic = menu_4();
@@ -147,7 +148,7 @@ void step_4_books(string zdani,string email,int i, map<string, books*>m) {
 }
 
 
-void step_3_films(string zdani, string email,  map<string, films*> m) {
+void step_3_films(string zdani, string email,  map<string, films*>&m) {
 	int choic;
 	do {
 		choic = menu_3_films(m);
@@ -157,17 +158,21 @@ void step_3_films(string zdani, string email,  map<string, films*> m) {
 	} while (true);
 }
 
-void step_3_books(string zdani, string email, map<string, books*> m) {
+
+void step_3_books(string zdani, string email, map<string, books*> &m) {
 	int choic;
 	do {
-		choic = menu_3_books (m);
+		choic = menu_3_books(m);
 		if (!choic)break;
 		step_4_books(zdani, email, choic, m);
 	} while (true);
 }
 
 
-void step_2(string zdani,string email, map<string, books*>mb,map<string, films*>mf ) {
+
+
+
+void step_2(string zdani,string email, map<string, books*>mb,map<string, films*>&mf ) {
 	int choic;
 	do {
 		choic = menu_2();
@@ -181,75 +186,8 @@ void step_2(string zdani,string email, map<string, books*>mb,map<string, films*>
 			break;
 
 		}
-
-
 	} while (true);
-
-
-}
-
-void step_2_in_admin(string admin) {
-	int choic;
-	work_admina wa;
-	do {
-		choic = menu_2();
-		if (!choic)break;
-		switch (choic) {
-		case 1:
-			wa.zmina_email_end_parol(admin);
-			break;
-		case 2:
-			menu_2();
-			break;
-
-		}
-
-
-	} while (true);
-
-
 }
 
 
 
-
-void step_1(string accou,string zdani,string admin, map<string, books*>mb, map<string, films*>mf ) {
-	int choic;
-	tester t;
-	do {
-		choic = menu_1();
-		if (!choic)break;
-		switch (choic) {
-		case 1:
-			if (t.login_account(admin)) {
-		
-			}
-			else {
-				cout << "Ви не змогли увійти в систему!\n";
-			}
-
-
-			break;
-		case 2:
-			if (t.login_account(accou) == true) {
-				step_2(zdani, t.get_email(),mb,mf );
-			}
-			else {
-				cout << "Ви не змогли увійти в систему!\n";
-
-			}
-		
-			break;
-		case 3:
-			t.register_account(accou);
-			break;
-
-		}
-
-
-	} while (true);
-
-
-
-
-}

@@ -163,6 +163,8 @@ int menu_last() {
 	
 	cout << "Ведіть число: ";
 	(cin >> choic).get();
+	system("pause");
+	system("cls");
 	return choic;
 }
 
@@ -173,14 +175,22 @@ int menu_2_admin() {
 	cout << string(40, '=') << "\n";
 	cout << "|| (1) - Змінини пароль!\n";
 	cout << "|| (2) - Подальші дії!\n";
+	cout << "|| (3) - Добавлення тесту!\n";
+	cout << "|| (4) - Видалення користувача!\n";
+	cout << "|| (5) - Зміна користувача!\n";
 	cout << "|| (0) - Вихід\n";
 	cout << "Натисніть на клавішу: ";
 	switch (_getch()) {
 	case '1': choic = 1; break;
 	case '2': choic = 2; break;
+	case '3': choic = 3; break;
+	case '4': choic = 4; break;
+	case '5': choic = 5; break;
 	case '0': choic = 0; break;
 	}
-
+	cout << "\n";
+	system("pause");
+	system("cls");
 	return choic;
 }
 
@@ -195,9 +205,7 @@ class work_admina {
 	books* b = new books;
 public:
 
-	void set_test(zavdany *z) {
-		z->set_test();
-	}
+
 	void zmina_email_end_parol(string admin) {
 		string email, parol;
 		pere_2(email);
@@ -297,7 +305,7 @@ public:
 		
 		}
 
-		void add_test(map<string, films*>mf, map<string, books*>mb) {
+		void add_test(map<string, films*>&mf, map<string, books*>&mb) {
 			int choic,c;
 			string str;
 			do {
@@ -363,7 +371,8 @@ public:
 					wf.cout_correct_wrong_fille(email, zdani);
 					break;
 				}
-
+				system("pause");
+				system("cls");
 			} while (true);
 
         }

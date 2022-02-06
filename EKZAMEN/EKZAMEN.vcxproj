@@ -142,6 +142,7 @@
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="admin.h" />
     <ClInclude Include="call_classes.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="testu.h" />
