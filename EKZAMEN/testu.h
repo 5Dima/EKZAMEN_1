@@ -52,8 +52,8 @@ public:
 
 class zavdany {
 public:
-	virtual void set_name_testa() = 0;
-	virtual void set_test() = 0;
+	virtual void set_name_testa() {};
+	virtual void set_test() { };
 	virtual void print_test() = 0;
 	virtual void reply_test() = 0;
 	virtual void print_correct_test() = 0;
@@ -68,6 +68,14 @@ virtual void resault() = 0;
 	virtual void print_zdani_t(string, string )=0;
 	virtual void set_zdani_testu(string, string)=0;
 
+
+	virtual string get_test(int i) = 0;
+
+	virtual string get_variant(int i, int j) = 0;
+
+	virtual int get_v(int i) = 0;
+	virtual int get_v_you(int i) = 0;
+
 };
 
 
@@ -77,21 +85,24 @@ class work_file {
 	int v=0;
 public:
 
-	void cout_fille(string path, putany_testiv p[SIZE]){
+	void cout_fille(string path, list<putany_testiv> &p){
 		fin.open(path, fstream::in);
+		auto el = p.begin();
 		for (int i = 0; i < SIZE; i++)
 		{
+
 			getline(fin, str);
-			p[i].set_test(str);
+			el->set_test(str);
 			for (int j = 1; j < 5; j++)
 			{
 			fin >> str;
-			p[i].set_variant(j, str);
+			el->set_variant(j, str);
 			}
 			fin >> v;
-			p[i].set_vidpovid(v);
+			el->set_vidpovid(v);
 			getline(fin, str);
 			getline(fin, str);
+			el++;
 		}
 		fin.close();
 	}
@@ -126,14 +137,14 @@ public:
 
 
 
-	void cin_correct_wrong_fille(string email,string path, map<int, putany_testiv> correct, map<int, putany_testiv> wrong,int ball,int vidsotk ){
+	void cin_correct_wrong_fille(string email,string path, map<int, putany_testiv> correct, map<int, putany_testiv> wrong,double ball,double vidsotk ){
 		fin.open(path, fstream::app);
 		fin << "\nEmail: " << email<<"\n";
 		string str;
 		for (auto el = correct.begin(); el != correct.end(); el++) {
 			fin << el->first << ") ";
 			str = el->second.get_test();
-			for (int i = 0; i < str.size(); i++)
+			for (int i = 0;  i < str.size(); i++)
 				fin << str[i];
 			fin << "\n";
 			for (int j = 1; j < 5; j++) {
@@ -183,48 +194,60 @@ public:
 
 
 class films :public zavdany {
-	int size, nomer;
-	double vidpo= 8.33333,bal,vidsot;
+	int nomer;
+	double bal,vidsot=8.33333;
+	int vidpo;
+
 	list<putany_testiv> l;
-	list<putany_testiv> zdani;
-	putany_testiv p[SIZE];
+
+	putany_testiv p;
 	map<int, putany_testiv> correct, wrong;
-	string path;
+	string path = "Питання по фільмах.txt";
 	work_file wf;
+
 public:
-	films() {
-		path = "Питанння по фільмах.txt";
-	}
-	void set_test()override {
+	void set_test()override{
 		for (int i = 0; i < SIZE; i++)
 		{
-			p[i].set_putany();
-			l.push_back(p[i]);
+			p.set_putany();
+			l.push_back(p);
+			//l.push_back(p);
+		}
+
+		for (auto el = l.begin(); el != l.end(); el++) {
+			el->print_putany();
+			cout << string(50, '=') << "\n";
+		}
+
+   }
+
+
+	void set_test_in_fille()override {
+			wf.cout_fille(path, l);
+	}
+
+
+	void print_test() override {
+		for (auto el = l.begin(); el != l.end(); el++) {
+			el->print_putany();
 		}
 	}
-	void set_test_in_fille()override {
-			wf.cout_fille(path, p);
-		for (int i = 0; i < SIZE; i++)
-			l.push_back(p[i]);
-	}
-	void print_test() override {
-		for (int i = 0; i < SIZE; i++)
-			p[i].print_putany();
-	}
 	void reply_test()override {
+		auto el = l.begin();
 		for (int i = 0; i < SIZE; i++)
 		{
 			cout << "Завдання: " << i + 1 << "\n";
-			p[i].print_putany();
+			el->print_putany();
 			(cin >> vidpo).get();
-			p[i].set_you_vidpovid(vidpo);
-			if (vidpo == p[i].get_v()) {
-				cout << p[i].get_v1(vidpo);
-				correct.insert({ vidpo,p[i]});
+			el->set_you_vidpovid(vidpo);
+			if (vidpo == el->get_v()) {
+				cout << el->get_v1(vidpo);
+				correct.insert({ vidpo,*el});
 			}
 			else {
-				wrong.insert({ vidpo,p[i] });
+				wrong.insert({ vidpo,*el });
 			}
+			el++;
 		}
 	}
 	void print_correct_test()override {
@@ -237,7 +260,153 @@ public:
 		cout << string(50, '^')<<"\n";
 	}
 	void set_bal_vidsotok()override {
-		bal = correct.size()*2;
+		bal = 2*correct.size();
+		vidsot *= bal;
+		vidsot = ceil(vidsot);
+	}
+
+	void resault()override {
+		cout << "Бали за тест: " << bal << "\n";
+		cout << "Процент правельних відповідей: " <<  vidsot << "%\n";
+	}
+	void print_wrong_test() override {
+		cout << string(50, '^') << "\n";
+		for (auto el = wrong.begin(); el != wrong.end(); el++)
+		{
+			el->second.print_putany();
+			cout << "Ви відповіли: " << el->second.get_v1(el->first);
+			cout << "\nПравельна віідповідь: " << el->second.get_v1(el->second.get_v())<<"\n";
+		}
+		cout << string(50, '^') << "\n";
+	}
+
+	void print_zdani_t(string email, string path)override {
+		wf.cout_correct_wrong_fille(email, path);
+	}
+
+	string get_test(int i) override {
+		auto el = l.begin();
+		advance(el,i);
+		return el->get_test();
+	}
+	
+	string get_variant(int i,int j) override {
+		for (auto el = l.begin(); el != l.end(); el++) {
+			el->print_putany();
+			cout << string(50, '=') << "\n";
+		}
+		
+		/*	auto el = l.begin();
+		cout << i << "\n";
+		
+		advance(el,);
+
+		cout<<el->get_v1(j)<<"\n";
+		system("pause");*/
+
+//		return el->get_v1(j);
+
+		return "dfsdfsd";
+	}
+	
+	int get_v(int i) override {
+		auto el = l.begin();
+		advance(el,i);
+		return el->get_v();
+	}
+	int get_v_you(int i) override{
+		auto el = l.begin();
+		advance(el,i);
+		return el->get_you();
+	}
+
+
+	void set_zdani_testu(string email,string path)override {
+		wf.cin_correct_wrong_fille(email, path, correct, wrong, bal, vidsot);
+	}
+	~films() {
+
+	}
+};
+
+	class books :public zavdany {
+	int nomer;
+	double bal,vidsot=8.33333;
+	int vidpo;
+	list<putany_testiv> l;
+	putany_testiv p;
+	map<int, putany_testiv> correct, wrong;
+	string path = "Питання по книгах.txt";
+	work_file wf;
+
+public:
+	void set_test()override{
+		for (int i = 0; i < SIZE; i++)
+		{
+			p.set_putany();
+			l.push_back(p);
+		}
+   }
+	string get_test(int i) override {
+		auto el = l.begin();
+		advance(el, i);
+		return el->get_test();
+	}
+
+	string get_variant(int i, int j) override {
+		auto el = l.begin();
+		advance(el, i);
+		return el->get_v1(j);
+	}
+
+	int get_v(int i) override {
+		auto el = l.begin();
+		advance(el, i);
+		return el->get_v();
+	}
+	int get_v_you(int i) override {
+		auto el = l.begin();
+		advance(el, i);
+		return el->get_you();
+	}
+
+	void set_test_in_fille()override {
+			wf.cout_fille(path, l);
+	}
+	void print_test() override {
+		for (auto el = l.begin(); el != l.end(); el++) {
+			el->print_putany();
+		}
+	}
+	void reply_test()override {
+		auto el = l.begin();
+		for (int i = 0; i < SIZE; i++)
+		{
+			cout << "Завдання: " << i + 1 << "\n";
+			el->print_putany();
+			(cin >> vidpo).get();
+			el->set_you_vidpovid(vidpo);
+			if (vidpo == el->get_v()) {
+				cout << el->get_v1(vidpo);
+				correct.insert({ vidpo,*el});
+			}
+			else {
+				wrong.insert({ vidpo,*el });
+			}
+			el++;
+		}
+	}
+	void print_correct_test()override {
+		cout << string(50, '^')<<"\n";
+		for (auto el = correct.begin(); el !=correct.end(); el++)
+		{
+			el->second.print_putany();
+			cout << "Ви відповіли правельно: " << el->second.get_v1(el->first)<<"\n";
+		}
+		cout << string(50, '^')<<"\n";
+	}
+	void set_bal_vidsotok()override {
+		bal = 2*correct.size();
 		vidsot *= bal;
 		vidsot = ceil(vidsot);
 	}
@@ -263,5 +432,9 @@ public:
 	void set_zdani_testu(string email,string path)override {
 		wf.cin_correct_wrong_fille(email, path, correct, wrong, bal, vidsot);
 	}
+	~books() {
+
+	}
 
 };
+	

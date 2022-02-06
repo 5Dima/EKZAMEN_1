@@ -117,7 +117,7 @@ public:
 			else {
 				pere_1(parol);
 				fin.open(path, fstream::app);
-				fin << email<<" " << parol << "\n";
+				fin<<"\n"<< email << " " << parol;
 				pere = false;
 				fin.close();
 			}
@@ -146,7 +146,12 @@ public:
 					break;
 				}
 				else {
-					if (sprob - i != 1) { cout << "Залишилось " << sprob - i-1 << " спроби!\n"; }
+					system("cls");
+					cout << string(40, '=') << "\n";
+					cout << "Вхід в акаунт!\n";
+					cout << "Ведіть email: "<<email<<"\n";
+
+					if (sprob - i != 1) { cout << "Залишилось " << sprob - i - 1 << " спроби!\n"; cout << "Ведіть пароль: "; }
 					else { cout << "Всі спроби завершились"; }
 				}
 				 	pere = false;

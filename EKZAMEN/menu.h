@@ -2,56 +2,96 @@
 int size_films = 0;
 
 int menu_1() {
+	int choic;
+	cout << string(40, '=') << "\n";
 	cout << "|| (1) - Вхід акаунт адміна!\n";
 	cout << "|| (2) - Вхід акаунт тестира!\n";
 	cout << "|| (3) - Регістарція акаунта тестора !\n";
 	cout << "|| (0) - Вихід\n";
 	cout << "Натисніть на клавішу: ";
 	switch (_getch()) {
-	case '1': return 1; break;
-	case '2': return 2; break;
-	case '3': return 3; break;
-	case '0': return 0; break;
+	case '1': choic=1; break;
+	case '2': choic = 2; break;
+	case '3': choic =  3; break;
+	case '0': choic =  0; break;
 	}
+	cout << "\n";
+	system("pause");
+	system("cls");
+	return choic;
 }
 
 
 
 
 int menu_2() {
+	int choic=0;
+	system("pause");
+	system("cls");
+	cout << string(40, '=') << "\n";
 	cout << "|| (1) - Фільми!\n";
 	cout << "|| (2) - Книги!\n";
 	cout << "|| (3) - Переглянути можливі тести!\n";
 	cout << "|| (0) - Вихід\n";
 	cout << "Натисніть на клавішу: ";
 	switch (_getch()) {
-	case '1': return 1; break;
-	case '2': return 2; break;
-	case '3': return 3; break;
-	case '0': return 0; break;
+	case '1': choic = 1; break;
+	case '2': choic = 2; break;
+	case '3': choic = 3; break;
+	case '0': choic = 0; break;
 	}
+
+	return choic;
+}
+
+int menu_2_admin() {
+	int choic=0;
+	system("pause");
+	system("cls");
+	cout << string(40, '=') << "\n";
+	cout << "|| (1) - Змінини пароль!\n";
+	cout << "|| (2) - ...!\n";
+	cout << "|| (3) - ...!\n";
+	cout << "|| (0) - Вихід\n";
+	cout << "Натисніть на клавішу: ";
+	switch (_getch()) {
+	case '1': choic = 1; break;
+	case '2': choic = 2; break;
+	case '3': choic = 3; break;
+	case '0': choic = 0; break;
+	}
+
+	return choic;
 }
 
 
 int menu_4() {
+	int choic = 0;
+	system("cls");
+	cout << string(40, '=') << "\n";
 	cout << "|| (1) - Переглянути резульат тесту!\n";
 	cout << "|| (2) - Пройти тест!\n";
 	cout << "|| (3) - Переглянути усі тести які здані!\n";
 	cout << "|| (0) - Вихід\n";
 	cout << "Натисніть на клавішу: ";
 	switch (_getch()) {
-	case '1': return 1; break;
-	case '2': return 2; break;
-	case '3': return 3; break;
-	case '0': return 0; break;
+	case '1': choic = 1; break;
+	case '2': choic = 2; break;
+	case '3': choic = 3; break;
+	case '0': choic = 0; break;
 	}
+	return choic;
 }
 work_tester w;
 
 int menu_3(map<string, zavdany*>m) {
 	int i=1;
+	system("pause");
+	system("cls");
+	cout << string(40, '=') << "\n";
 	for (auto el = m.begin(); el != m.end(); el++) {
 		cout << "|| ("<<i<<" - " << el->first << "\n";
+		i++;
 	}
 	cout << "|| (0) - Вихід\n";
 	cout << "Натисніть на клавішу: ";
@@ -66,7 +106,7 @@ int menu_3(map<string, zavdany*>m) {
 void step_4(string zdani,string email,int i, map<string, zavdany*>m) {
 	int choic;
 	auto el = m.begin();
-	advance(el, i);
+	//advance(el, i);
 	do {
 
 		choic = menu_4();
@@ -83,6 +123,7 @@ void step_4(string zdani,string email,int i, map<string, zavdany*>m) {
 		case 3:
 			w.print_zdani_testu(email, zdani);
 			break;
+	
 		}
 
 
@@ -122,10 +163,34 @@ void step_2(string zdani,string email, map<string, zavdany*>m) {
 
 }
 
+void step_2_in_admin(string admin) {
+	int choic;
+	work_admina wa;
+	do {
+		choic = menu_2();
+		if (!choic)break;
+		switch (choic) {
+		case 1:
+			wa.zmina_email_end_parol(admin);
+			break;
+		case 2:
 
 
 
-void step_1(string accou,string zdani, map<string, zavdany*>m ) {
+			break;
+
+		}
+
+
+	} while (true);
+
+
+}
+
+
+
+
+void step_1(string accou,string zdani,string admin, map<string, zavdany*>m ) {
 	int choic;
 	tester t;
 	do {
@@ -133,6 +198,14 @@ void step_1(string accou,string zdani, map<string, zavdany*>m ) {
 		if (!choic)break;
 		switch (choic) {
 		case 1:
+			if (t.login_account(admin)) {
+
+				step_2_in_admin(admin);
+			}
+			else {
+
+			}
+
 
 			break;
 		case 2:
