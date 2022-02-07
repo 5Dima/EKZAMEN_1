@@ -2,24 +2,6 @@
 
 
 
-//
-//void step_3_admn(string zdani, string email, map<string, books*>mb, map<string, films*>mf) {
-//	int choic;
-//	do {
-//		choic = menu_2();
-//		if (!choic)break;
-//		switch (choic) {
-//		case 1:
-//			step_3_films_admin(zdani, email, mf);
-//			break;
-//		case 2:
-//			step_3_books_admin(zdani, email, mb);
-//			break;
-//
-//		}
-//	} while (true);
-//}
-
 
 
 void step_2_in_admin(string admin, string email, map<string, books*>&mb, map<string, films*>&mf, string zdani,string accou) {

@@ -94,35 +94,6 @@ void set_fil_test_books(string path,map<string,books*>m) {
 	fin.close();
 }
 
-//
-//void cout_fil_test_books(string path,map<string,books*>&m) {
-//	fstream fin;
-//	string p,str,test, v1, v2, v3, v4;
-//	int v;
-//	books* b=new books;
-//	fin.open(path, fstream::in);
-//	//while (!fin.eof()) {
-//		getline(fin, str);
-//		for (int i = 0; i < SIZE; i++)
-//		{
-//		getline(fin, test);
-//		fin >> v1;
-//		fin >> v2;
-//		fin >> v3;
-//		fin >> v4;
-//		getline(fin, p);
-//		fin >> v;
-//		b->set_test(test, i);
-//		b->set_variant(v1, i, 1);
-//		b->set_variant(v2, i, 2);
-//		b->set_variant(v3, i, 3);
-//		b->set_variant(v4, i, 4);
-//		b->set_p(i);
-//		}
-//	m.insert({str,b});
-////	}
-//	fin.close();
-//}
 
 int menu_vubir() {
 	cout << string(30, '^') << "\n";
@@ -141,7 +112,7 @@ int menu_vubir() {
 int menu_vubir_2() {
 	cout << string(30, '^') << "\n";
 	cout << "|| (1) - Считати тести з файлу!\n";
-	cout << "|| (0) - Вихід!\n";
+	cout << "|| (0) - Заповнити вручну!\n";
 	cout << string(30, '^') << "\n";
 	cout << "Ведіть число: ";
 	int choic;
