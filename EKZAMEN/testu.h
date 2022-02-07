@@ -48,7 +48,7 @@ public:
 
 };
 
-#define SIZE 2 //6
+#define SIZE 6 //6
 
 class zavdany {
 public:
